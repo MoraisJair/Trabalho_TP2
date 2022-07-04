@@ -1,0 +1,65 @@
+CREATE DATABASE caixaATM;
+USE caixaATM;
+
+CREATE TABLE conta (
+  idConta int NOT NULL AUTO_INCREMENT,
+  nomeCliente varchar(100) NOT NULL,
+  cpfCliente varchar(11) NOT NULL,
+  rgCliente varchar(9) DEFAULT NULL,
+  agencia int NOT NULL,
+  login int NOT NULL,
+  senha int NOT NULL,
+  saldo float NOT NULL,
+  PRIMARY KEY (idConta)
+);
+
+INSERT INTO `conta` (`idConta`, `nomeCliente`, `cpfCliente`, `rgCliente`, `agencia`, `login`, `senha`, `saldo`) VALUES
+(1, 'Jose Silva', '08876577811', '182465333', 001, 0123, 3210, 40),
+(2, 'Pedro Borges', '23542976830', '152483434', 001, 1234, 4321, 40),
+(3, 'Maria Alves', '23456543213', '23456765', 001, 2345, 5432, 80),
+(4, 'Rosa Matos', '32457654324', '123456457', 001, 3456, 6543, 70),
+(5, 'Luis Dias', '23465432466', '123876456', 001, 4567, 7654, 100);
+
+CREATE TABLE deposito (
+  idDeposito int NOT NULL AUTO_INCREMENT,
+  valorDeposito float NOT NULL,
+  id_conta int NOT NULL,
+  dataTransacao timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (idDeposito),
+  KEY FK_Conta (id_conta)
+);
+
+INSERT INTO deposito (`idDeposito`, `valorDeposito`, `id_conta`, `dataTransacao`) VALUES
+(1, 500, 11, '2022-06-06 06:29:19'),
+(2, 200, 6, '2022-06-06 06:39:43');
+
+CREATE TABLE saque (
+  idSaque int NOT NULL AUTO_INCREMENT,
+  valorSaque float NOT NULL,
+  id_conta int NOT NULL,
+  dataTransacao timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (idSaque),
+  KEY id_contaFK (id_conta)
+);
+
+INSERT INTO saque (`idSaque`, `valorSaque`, `id_conta`, `dataTransacao`) VALUES
+(1, 30, 6, '2022-06-05 06:24:44'),
+(2, 40, 11, '2022-06-05 06:24:44'),
+(3, 50, 11, '2022-06-05 06:24:44'),
+(4, 60, 6, '2022-06-05 06:25:28');
+
+CREATE TABLE transferencia (
+  id_transferencia int NOT NULL AUTO_INCREMENT,
+  valor float NOT NULL,
+  id_conta int NOT NULL,
+  dataTransacao timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id_transferencia),
+  KEY FK_Conta (id_conta)
+);
+
+INSERT INTO transferencia (`id_transferencia`, `valor`, `id_conta`, `dataTransacao`) VALUES
+(1, 50, 6, '2022-06-05 06:26:07'),
+(2, 40, 6, '2022-06-05 06:26:07'),
+(3, 30, 11, '2022-06-05 06:26:07'),
+(4, 20, 11, '2022-06-05 06:26:07'
+);
